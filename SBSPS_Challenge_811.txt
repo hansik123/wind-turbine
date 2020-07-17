@@ -1,0 +1,306 @@
+﻿
+1. PROBLEM STATEMENT
+Predicting the energy output of wind turbine based on weather condition. Wind energy plays an increasing role in the supply of energy world-wide. The energy output of a wind farm is highly dependent on the wind conditions present at its site. If the output can be predicted more accurately, energy suppliers can coordinate the collaborative production of different energy sources more efficiently to avoid costly overproduction.
+ 
+ 
+       2.  SOLUTION
+Wind energy plays an increasing role in the supply of energy world-wide. The energy output of a wind farm is highly dependent on the wind conditions present at its site. If the output can be predicted more accurately using the concept Data science and the technology computer science, in this perspective energy prediction is based on weather condition data present at its site and analyze the important parameters as well as the correlation of energy output.
+ 	Predicting the energy output of wind turbine based on weather condition is the main idea, but predicting it more accurately is going to help us with energy suppliers to coordinate the collaborative production of different energy sources more efficiently to avoid costly overproduction. Developing more accurate numerical and statistical wind power forecasting techniques, studying wind power forecasting error. Since, each type of turbine has a different power curve which depends on factors like Area, Geographical position of wind farm, the number and location of turbines within the wind farm also play an important role in the accuracy of forecasting. This study of weather forecasting based on all the factors is going to help us with more accurate and easy way of predicting the energy output.
+CHAPTER-1 IMPORTING LIBRARIES AND DATASET 
+We have gathered the datasets from the provided link. There are many providers of free datasets for data science. These datasets are often provided through an API and are stored in different formats. Getting them into a pandas DataFrame is often an overkill if we just want to quickly try out some machine-learning algorithm or a visualization. A “built-in” datasets that are provided by popular python data science package. These datasets can be easily accessed in form of a pandas DataFrame and can be used for quick experimenting. Import all the packages which will be used throughout the notebook.
+
+
+Explanation: This explains loading of libraries in the notebook.
+
+i. DATA CLEANING AND IMPORTING
+Data cleaning is the process of detecting and correcting (or removing) corrupt or inaccurate records from a record set, table, or database and refers to identifying incomplete, incorrect, inaccurate or irrelevant parts of the data and then replacing, modifying, or deleting the dirty or coarse data.
+It’s important to understand these different types of data from a statistics point of view. The type of missing data will influence how you deal with filling in the missing values.
+In the dataset all the blank spaces are replaced with '0'.The negative values and null values in LV Active Power is replaced with 825.838.
+     Explanation: 
+This is the output of dataset imported in the notebook after cleaning the data.	
+ ii.    DATASET STRUCTURE AND CONTENT       
+Data structure refers to the format that contains a collection of data values, their relationships, and the functions that can be applied to the data.
+
+
+Explanation:
+ This output explains helps us to know the data shape, if there are any null values in the dataset and describe the data.
+
+
+Explanation: 
+The output tells us the train shape and test shape.
+
+CHAPTER-2  FEATURE EXTRACTION
+
+	We have extracted the time and date from the Datetime.The data type of Datetime is object.Change the data type to datetime format otherwise it can not extract features from it.
+
+	We have made some hypothesis for the effect of hour, day, month and year on the passenger count.Extract the year, month, day and hour from the Datetime to validate hypothesis.
+
+	
+	
+
+
+Explanation: 
+This output explains the relation bewteen LA active power and time series.
+
+
+Explanation:
+ This output explains the relation bewteen wind speed and time series.
+
+
+
+Explanation:
+ This output explains the relation bewteen Theoretical_Power_Curve and Time series.
+
+Explanation: 
+This output explains the relation bewteen Wind direction and Time series.
+
+CHAPTER-3 EXPLORATORY ANALYSIS
+
+Exploratory data analysis (EDA) is an approach to analyzing data sets to summarize their main characteristics, often with visual methods. A statistical model can be used or not, but primarily EDA is for seeing what the data can tell us beyond the formal modeling or hypothesis testing task.
+To verify our hypothesis using the actual data.
+
+
+	
+
+
+Explanation: 
+This output explains the relation bewtween LV active power w.r.t daily and weekly time series.
+
+	
+Explanation: 
+This output explains the relation bewtween LV active power w.r.t monthly and Date/time series.
+
+ 
+CHAPTER-4 MODELLING TECHNIQUES AND EVALUATION
+
+i. SPLITTING THE DATA INTO TRAINING AND VALIDATION PART
+Divide data in train and validation.The model on the train part and will predict on the validation part to check the accuracy of our predictions.
+
+
+	
+Explanation:
+This output explains the starting date and end date of dataset for both train and valid.
+
+
+	
+
+Explanation:
+In the output blue part represents the train data and the orange part represents the validation data.
+
+ii. NAIVE APPROACH
+
+Estimating technique in which the last period's actuals are used as this period's forecast, without adjusting them or attempting to establish causal factors. It is used only for comparison with the forecasts generated by the better (sophisticated) techniques.
+	
+
+Explanation:
+In the output,blue line is the prediction.
+Using root mean square error accuracy of predictions is calculated.
+
+Explanation:
+This method is not suitable for datasets with high variability. We can reduce the RMSE value by adopting different techniques.
+
+MOVING AVERAGE
+In this technique we will take the average of the LV active power counts for last few time periods.
+
+
+Explanation:
+The output explains moving average Forecast using 10 observations.
+
+Explanation:
+The output explains moving average Forecast using 20 observations.
+
+
+Explanation:
+The output explains moving average Forecast using 50 observations.
+The predictions are getting weaker as we increase number of observations.
+
+
+Explanation:
+The output tells the rms is 997.2424283212006.
+
+SIMPLE EXPONENTIAL SMOOTHING
+
+Single Exponential Smoothing, SES for short, also called Simple Exponential Smoothing, is a time series forecasting method for univariate data without a trend or seasonality. It requires a single parameter, called alpha (a), also called the smoothing factor or smoothing coefficient.
+
+
+
+
+	
+Explanation:
+The output tells the rms is 1284.6882246882942.
+
+HOLT's LINEAR TREND MODEL
+	This is also known as linear exponential smoothing, is a popular smoothing model for forecasting data with trend. Holt's model has three separate equations that work together to generate a final forecast.The third equation is used to generate the final forecast.
+
+
+
+Time series is divided into four parts.
+● Observed
+● Trend
+● Seasonal
+● Residual
+
+
+
+Explanation:
+The explains that the Observed is the original time series.
+Trend which shows the trend in the time series, i.e., increasing or decreasing behaviour of the time series.
+Seasonal, which tells the seasonality in the time series.
+Residual, which is obtained by removing any trend or seasonality in the time series.
+
+	
+Explanation:
+The model has taken into consideration the trend of the time series.	
+
+
+Explanation:
+The output tells us the rms is 2817.3966881437586
+
+iii. HOLT’S LINEAR TREND MODEL ON DAILY TIME SERIES
+
+Each Time series dataset can be decomposed into it's componenets which are Trend, Seasonality and Residual. Any dataset that follows a trend can use Holt's linear trend method for forecasting.
+Predictions based on the daily time series and then will distribute that daily prediction to hourly predictions.
+
+
+Explanation:
+The prediction in the testfile is saved in a New coloumn.
+
+
+	
+Explanation:
+The output explains that the predictions are converted into hourly basis.
+To calculate the hourly predictions we will multiply the daily prediction with the hourly ratio.
+
+iv. HOLT WINTER’S MODEL ON DAILY TIME SERIES
+Datasets which show a similar set of pattern after fixed intervals of a time period suffer from seasonality.
+
+
+
+
+Explanation:
+The output explains the idea behind Holt’s Winter is to apply exponential smoothing to the seasonal components in addition to level and trend.
+
+
+Explanation:
+The output tells the rms for holts winter model is 1126.5281336328176.
+
+
+V. INTRODUCTION TO ARIMA MODEL
+ARIMA stands for Auto Regression Integrated Moving Average. It is specified by three ordered parameters (p,d,q).
+●  p is the order of the autoregressive model(number of time lags)
+● d is the degree of differencing(number of times the data have had past values subtracted)
+● q is the order of moving average model.
+The ARIMA forecasting for a stationary time series is nothing but a linear (like a linear regression) equation.
+There are three basic criterion for a series to be classified as stationary series :
+● The mean of the time series should not be a function of time. It should be constant.
+● The variance of the time series should not be a function of time.
+● The covariance of the ith term and the (i+m)th term should not be a function of time.
+Variables can be dependent in various ways, but can only be independent in one way. When they are independent ,more information is gained.So, the time series must be stationary.
+
+vi. PARAMETER TUNING FOR ARIMA MODEL
+
+Stationarity Check
+●  Dickey Fuller test to check the stationarity of the series.it determines how strongly a time series is defined by a trend.
+● The null hypothesis of the test is that time series is not stationary (has some time-dependent structure).
+● The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary.
+
+
+Explanation:
+The statistics shows us the results of Dickey-Fuller test.
+
+REMOVING TREND
+A trend exists when there is a long-term increase or decrease in the data. It does not have to be linear.
+The increasing trend in the data,we can apply transformation which penalizes higher values more than smaller ones, for example log transformation.
+Take rolling average here to remove the trend.Window size of 24 based on the fact that each day has 24 hours.
+
+
+
+To make the time series stationary-
+
+
+Explanation:
+The statistics shows us the results of Dickey-Fuller test.
+Differencing will help to make the series stable and eliminate the trend.
+REMOVING SEASONALITY
+Seasonality means periodic fluctuations. A seasonal pattern exists when a series is influenced by seasonal factors (e.g., the quarter of the year, the month, or day of the week).
+Seasonality is always of a fixed and known period.Seasonal decompose to decompose the time series into trend, seasonality and residuals.
+
+
+
+	
+Explanation:
+The Trends, Residual and Seasonality are clearly observed in the above graph.
+
+
+	
+	
+Explanation:
+The output tells us that the residuals are stationary.
+FORECASTING THE TIME SERIES USING ARIMA
+ACF is a measure of the correlation between the TimeSeries with a lagged version of itself.
+PACF measures the correlation between the TimeSeries with a lagged version of itself but after eliminating the variations already explained by the intervening comparisons.
+
+	
+Explanation:
+
+From the output graph the q value is the lag value where the ACF chart crosses the upper confidence interval for the first time.
+
+Explanation:
+From the output graph the p value is the lag value where the PACF chart crosses the upper confidence interval for the first time.
+AR MODEL
+The autoregressive model specifies that the output variable depends linearly on its own previous values.
+
+	
+
+Explanation:
+From the output graph,Red line shows the prediction for validation set and rmse is 113.5370.
+
+MA MODEL
+The moving-average model specifies that the output variable depends linearly on the current and various past values of a stochastic (imperfectly predictable) term.
+
+
+	
+	
+	
+Explanation:
+From the output graph,the rms is 145.6676.
+
+COMBINED MODEL
+Combing the AR Model and MA Model.
+
+	
+DEFINE A FUNCTION WHICH CAN BE USED TO CHANGE THE SCALE OF THE MODEL TO THE ORIGINAL SCALE
+
+PREDICT THE VALUES FOR VALIDATION SET
+
+
+Explanation:
+The output graph os the predictions for the values for valiadation set.
+
+VII. SARIMAX MODEL ON DAILY TIME SERIES
+SARIMAX model takes into account the seasonality of the time series.
+
+	
+Explanation:
+The above model represents the order of the autoregressive model(number of time lags), the degree of differencing(number of times the data have had past values subtracted) and the order of moving average model.
+Seasonal order represents the order of the seasonal component of the model for the AR parameters, differences, MA parameters, and periodicity.
+
+Explanation:
+From the above output,the rms value is 1186.6039791111011.
+
+Forecasting the test series from time data which starts from "2018-09-09"and ends at "2018-12-31".
+
+Explanation:
+The above code explains the forecasting of test series of test data from a particular start date to end date.
+Converting daily prediction into hourly counts.the ratio of hourly distribution of passenger count from train data and distribute the predictions in the same ratio.
+
+
+
+
+CHAPTER-5 CONCLUSION
+
+
+Explanation:
+The output gives us the predicted values as shown above.
+
+27
